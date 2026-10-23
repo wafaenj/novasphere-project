@@ -1,15 +1,14 @@
-NovaSphere Project
+# NovaSphere Project
 
-Terraform AWS Infrastructure Project - 5SRC4
+Terraform AWS Infrastructure Project - 5SRC4 
 
-Team : 
+## Team :
 
-GUESDON Téa-Gabrielle : Network & VPC
-LELLOUCHE Maëva: Compute & Auto Scaling
-BOULAKHRAS Awatef: Secrets & Configuration
-BIDINGENYI NZADI Jemima: Terraform Module
-ENOUIJAH Wafa: CI/CD & Documentation
+- Téa-Gabrielle Guesdon — Network & VPC
+- Maëva Lellouche — Compute & Auto Scaling
+- Awatef Boulakhras — Secrets & Configuration 
+- Jemima Bidingenyi Nzadi — Terraform Module 
+- Wafa Enouijah — CI/CD & Documentation
 
-Project Status : 
-
+## Project Status :
 Project currently under development.
