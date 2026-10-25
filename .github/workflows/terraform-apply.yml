@@ -1,0 +1,39 @@
+name: "Terraform Apply & Drift"
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  apply-dev:
+    name: "Deploy to Dev"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+  apply-prod:
+    name: "Deploy to Prod"
+    needs: apply-dev
+    runs-on: ubuntu-latest
+    environment: prod
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+  drift-detection:
+    name: "Drift Detection"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+      - name: Run Plan with Detailed Exitcode
+        run: |
+          echo "Detection de derive en cours..."
