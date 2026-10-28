@@ -10,12 +10,6 @@ jobs:
     name: "Terraform Plan Check"
     runs-on: ubuntu-latest
     steps:
-      - name: Configure Git Credentials
-        env:
-          GH_PAT: ${{ secrets.GH_PAT }}
-        run: |
-          git config --global url."https://x-access-token:${GH_PAT}@github.com/".insteadOf "https://github.com/"
-
       - name: Checkout
         uses: actions/checkout@v4
         with:
