@@ -15,10 +15,9 @@ jobs:
         with:
           token: ${{ secrets.GH_PAT }}
 
-      - name: Configure Git Credentials
+      - name: Inject GH_PAT into Terraform Module URL
         run: |
-          git config --global credential.helper store
-          echo "https://x-access-token:${{ secrets.GH_PAT }}@github.com" > ~/.git-credentials
+          sed -i 's|https://github.com/|https://x-access-token:${{ secrets.GH_PAT }}@github.com/|g' envs/dev/main.tf
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
