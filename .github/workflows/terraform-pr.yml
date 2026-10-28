@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          token: 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
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
