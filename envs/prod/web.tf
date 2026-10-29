@@ -3,6 +3,22 @@
 # NOVASPHERE - COMPUTE & AUTO-SCALING
 # =====================================================
 
+# Recherche de l'image Amazon Linux 2023 officielle
+data "aws_ami" "compute_amazon_linux" {
+  most_recent = true
+  owners      = ["amazon"]
+
+  filter {
+    name   = "name"
+    values = ["al2023-ami-2023.*-x86_64"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+}
+
 
 # 1.Retrouver le Security Group ALB cree par le module reseau
 
@@ -67,7 +83,7 @@ resource "aws_lb_listener" "http" {
 # 5. LAUNCH TEMPLATE
 resource "aws_launch_template" "web" {
   name_prefix            = "novasphere-${var.environment}-web-"
-  image_id               = var.compute_ami_id
+  image_id               = data.aws_ami.compute_amazon_linux.id
   instance_type          = var.compute_instance_type
   vpc_security_group_ids = [module.vpc.web_security_group_id]
 
@@ -80,7 +96,10 @@ resource "aws_launch_template" "web" {
     http_tokens   = "required"
   }
 
-  user_data = var.compute_user_data_base64
+  user_data = base64encode(templatefile("${path.module}/../../templates/compute-bootstrap.sh.tftpl", {
+    environment = var.environment
+    region      = var.aws_region
+  }))
 
   tag_specifications {
     resource_type = "instance"
