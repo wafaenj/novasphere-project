@@ -3,6 +3,11 @@
 # NOVASPHERE - COMPUTE & AUTO-SCALING
 # =====================================================
 
+module "vpc" {
+  source      = "git::https://github.com/wafaenj/terraform-aws-module.git?ref=gaby-vcp"
+  environment = "dev"
+}
+
 # Recherche de l'image Amazon Linux 2023 officielle
 data "aws_ami" "compute_amazon_linux" {
   most_recent = true
